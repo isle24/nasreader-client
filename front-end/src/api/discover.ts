@@ -6,13 +6,13 @@
 // pure function in this module so it can be tested without a DOM. The HTTP calls are
 // built from an injected client; the view passes the app's shared `api`.
 //
-// Compliance boundary (doc/plans/2026-10-08-sources-management-scale.md §1.3):
-// nasReader NEVER bundles book sources. Sources live in the user's own
-// SoNovel/reader instance; this module only talks to adapters the administrator
-// configured, and upstream search stays opt-in behind the explicit search action.
+// Sources are administrator configured, including opt-in public platform adapters
+// and personal SoNovel/reader services. Search requires an explicit user action.
 import {errorMessage,integrationError,isUnavailable} from './errors';
 
-export interface AdapterRef {id:number;name:string;kind:string;base_url?:string;enabled?:boolean;has_secret?:boolean;supported?:boolean;capabilities?:string[];issues?:string[];version?:number|string;subscription_id?:number;engine?:string}
+/** Present only in administrator responses; tokens are never returned. */
+export interface PlatformSafeConfig {mode:'web'|'api'|'reader';api_base_url?:string;has_api_token?:boolean;reader_adapter_id?:number;source_key?:string}
+export interface AdapterRef {id:number;name:string;kind:string;base_url?:string;enabled?:boolean;has_secret?:boolean;supported?:boolean;capabilities?:string[];issues?:string[];version?:number|string;subscription_id?:number;engine?:string;platform_config?:PlatformSafeConfig}
 export interface Candidate {id:string;title:string;author:string;url:string;filename?:string;format?:string;origin?:string;source_name?:string;local_book_id?:number|null;cover_url?:string;can_update?:boolean}
 export interface ImportJob {id:number;status?:string;book_id?:number|null;error?:string;result_kind?:'added'|'updated'|'unchanged'|'conflict';result_book_id?:number|null}
 export interface ImportSummary {total:number;running:number;pending:number;completed:number;failed:number;processed:number;books_added:number}

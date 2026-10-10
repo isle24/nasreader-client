@@ -1,5 +1,5 @@
 {
-  "source_commit": "bfd1fbba05487fa2a9d49d9d979d2fcc8efdd020",
+  "source_commit": "21234c3bbe8493129064b7636d326d4373850d26",
   "server_included": false,
   "history_included": false,
   "files": {
@@ -41,19 +41,19 @@
     },
     "client/package-lock.json": {
       "source": "client/package-lock.json",
-      "sha256": "deb35df4f4bdfa9a6d00195202a7e7868b23c30d1a7fce2302abd2b0ea690545"
+      "sha256": "f2add62be3c042b7e3b8a764f286fb1b7f648ee3819d3b780048932784ee2cba"
     },
     "client/package.json": {
       "source": "client/package.json",
-      "sha256": "377c19b41acbdecb59952c1805930aa645b7217031b04ef1f4494f924251dd4c"
+      "sha256": "4d59bf7fe7e2b3b8e1971b09b3c31e6becf2eb57f8adffce30ec244e175d6e60"
     },
     "client/src-tauri/Cargo.lock": {
       "source": "client/src-tauri/Cargo.lock",
-      "sha256": "f2efda1adacf4c9647fc3c108675bee3505a311b92fbed222ad6b76ac9ad7929"
+      "sha256": "a83bf90546c720418fb27e10aeebacf0c5191289dca2040fd97b3d47300794ca"
     },
     "client/src-tauri/Cargo.toml": {
       "source": "client/src-tauri/Cargo.toml",
-      "sha256": "b745d1958b607e7a5f0e60ab7be7adea253ba469eaf8d780259c67c4f71f5af7"
+      "sha256": "09c0b3fa70dad6f160d5f157c92841a08e44626fa77ff30427d5f0fc1261c835"
     },
     "client/src-tauri/Entitlements.plist": {
       "source": "client/src-tauri/Entitlements.plist",
@@ -109,7 +109,7 @@
     },
     "client/src-tauri/tauri.conf.json": {
       "source": "client/src-tauri/tauri.conf.json",
-      "sha256": "cb2b438c12a7f71648e130ee3e8511e708e90f6f632bf9d8f9e8f879feaaa833"
+      "sha256": "cc0bd6299854750c55730a8a964b984f90c274021a5f6e1ca88d5875a0bfa962"
     },
     "client/src-tauri/tauri.windows.conf.json": {
       "source": "client/src-tauri/tauri.windows.conf.json",
@@ -173,7 +173,7 @@
     },
     "front-end/src/api/discover.ts": {
       "source": "front-end/src/api/discover.ts",
-      "sha256": "a8dab832290fcc4d2a7e66d861400d37e8f35426cdf224c1ab4ad20ce058f151"
+      "sha256": "bc2618508aa2c3883c229365d621543e23f8fc1b6e39e140fb29f3bd448eb9e6"
     },
     "front-end/src/api/errors.ts": {
       "source": "front-end/src/api/errors.ts",
@@ -197,11 +197,11 @@
     },
     "front-end/src/api/schema.ts": {
       "source": "front-end/src/api/schema.ts",
-      "sha256": "a0c6362a221069afb703127cb28f2d58ab030a7d83a316413887fa7fa427167d"
+      "sha256": "3c4e324566553c51d6f991f3c8b0a2f196ac19760b78937c2135e8159577e103"
     },
     "front-end/src/api/sourcePlugins.ts": {
       "source": "front-end/src/api/sourcePlugins.ts",
-      "sha256": "01d888679556ba09ff85ddd5084442f288b42a0e2b4d572a198f7a6f9629b0df"
+      "sha256": "fe376fe526db53df9a68820d238b6edccb2adf0cb9f51cc5799b8e20beed3882"
     },
     "front-end/src/api/tts.ts": {
       "source": "front-end/src/api/tts.ts",
@@ -263,6 +263,10 @@
       "source": "front-end/src/components/LibraryTargetPicker.vue",
       "sha256": "f7072b3f5d12ed5c6b308de44b76fecca14e875468cb979b812af9b23ad9553b"
     },
+    "front-end/src/components/PlatformSources.vue": {
+      "source": "front-end/src/components/PlatformSources.vue",
+      "sha256": "267826d8cdb338af51b87c622064ce73456184c8ffdb81571b0f39190ff99d9f"
+    },
     "front-end/src/components/ReaderCatalog.vue": {
       "source": "front-end/src/components/ReaderCatalog.vue",
       "sha256": "6effff4301283a2690b28c6e82714257b68cd3268997b0d0f87e99b1f1f746a5"
@@ -281,7 +285,7 @@
     },
     "front-end/src/components/SourcePlugins.vue": {
       "source": "front-end/src/components/SourcePlugins.vue",
-      "sha256": "f50234aca2c9dfe3d28b22adbe0cf8b25905f0ec35690d45ecd1bbf4ca072465"
+      "sha256": "276f175c3cd0789195d942c5003d31374f2bcd6b28344a552c7c3c52b5a28f48"
     },
     "front-end/src/identitySelection.ts": {
       "source": "front-end/src/identitySelection.ts",

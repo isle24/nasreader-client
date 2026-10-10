@@ -1662,7 +1662,7 @@ export interface paths {
         put?: never;
         /**
          * Probe a configured plugin
-         * @description Administrator only. Members receive 403. Capability/connectivity probe is distinct from full search/import/update acceptance.
+         * @description Administrator only. Members receive 403. Capability/connectivity probe is distinct from full search/import/update acceptance. Administrators may probe a disabled configured connection; disabled plugins still reject search/import.
          */
         post: operations["post_api_v1_adapters_id_test"];
         delete?: never;
@@ -2074,6 +2074,402 @@ export interface paths {
          * @description Library/content-kind scoped. Private content requires explicit read permission, including administrators. Automatic membership is frozen after manual edits. Source files are never changed.
          */
         post: operations["post_api_v1_collections_id_restore"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/categories": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List scoped category trees and counts
+         * @description Read and manage permissions follow the logical library. An administrator does not bypass private-library read permission. No original files are modified. AI modes are configurable per library, disabled by default; manual classifications are protected.
+         */
+        get: operations["get_categories"];
+        put?: never;
+        /**
+         * Create category
+         * @description Read and manage permissions follow the logical library. An administrator does not bypass private-library read permission. No original files are modified. AI modes are configurable per library, disabled by default; manual classifications are protected.
+         */
+        post: operations["post_categories"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/categories/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Soft-delete category subtree; retain books
+         * @description Read and manage permissions follow the logical library. An administrator does not bypass private-library read permission. No original files are modified. AI modes are configurable per library, disabled by default; manual classifications are protected.
+         */
+        delete: operations["delete_categories_id"];
+        options?: never;
+        head?: never;
+        /**
+         * Rename or move category with tree validation
+         * @description Read and manage permissions follow the logical library. An administrator does not bypass private-library read permission. No original files are modified. AI modes are configurable per library, disabled by default; manual classifications are protected.
+         */
+        patch: operations["patch_categories_id"];
+        trace?: never;
+    };
+    "/api/v1/categories/{id}/restore": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Restore only the deleted category subtree
+         * @description Read and manage permissions follow the logical library. An administrator does not bypass private-library read permission. No original files are modified. AI modes are configurable per library, disabled by default; manual classifications are protected.
+         */
+        post: operations["post_categories_id_restore"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/categories/defaults": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Idempotently add recommended categories
+         * @description Read and manage permissions follow the logical library. An administrator does not bypass private-library read permission. No original files are modified. AI modes are configurable per library, disabled by default; manual classifications are protected.
+         */
+        post: operations["post_categories_defaults"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/books/{id}/categories": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Read category assignment and manual version
+         * @description Read and manage permissions follow the logical library. An administrator does not bypass private-library read permission. No original files are modified. AI modes are configurable per library, disabled by default; manual classifications are protected.
+         */
+        get: operations["get_books_id_categories"];
+        /**
+         * Replace category assignment and protect manual choice
+         * @description Read and manage permissions follow the logical library. An administrator does not bypass private-library read permission. No original files are modified. AI modes are configurable per library, disabled by default; manual classifications are protected.
+         */
+        put: operations["put_books_id_categories"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/categories/assign": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Atomically assign up to 100 scoped books
+         * @description Read and manage permissions follow the logical library. An administrator does not bypass private-library read permission. No original files are modified. AI modes are configurable per library, disabled by default; manual classifications are protected.
+         */
+        post: operations["post_categories_assign"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/categories/assign-collection": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Assign all current collection members; preserve membership
+         * @description Read and manage permissions follow the logical library. An administrator does not bypass private-library read permission. No original files are modified. AI modes are configurable per library, disabled by default; manual classifications are protected.
+         */
+        post: operations["post_categories_assign_collection"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/category-ai/settings": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Read administrator AI classification settings
+         * @description Read and manage permissions follow the logical library. An administrator does not bypass private-library read permission. No original files are modified. AI modes are configurable per library, disabled by default; manual classifications are protected.
+         */
+        get: operations["get_category_ai_settings"];
+        /**
+         * Administrator chooses disabled, direct or review mode
+         * @description Read and manage permissions follow the logical library. An administrator does not bypass private-library read permission. No original files are modified. AI modes are configurable per library, disabled by default; manual classifications are protected.
+         */
+        put: operations["put_category_ai_settings"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/category-ai/enqueue": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Preview or enqueue unclassified unlocked content
+         * @description Read and manage permissions follow the logical library. An administrator does not bypass private-library read permission. No original files are modified. AI modes are configurable per library, disabled by default; manual classifications are protected.
+         */
+        post: operations["post_category_ai_enqueue"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/category-ai/tasks": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List scoped administrator classification tasks
+         * @description Read and manage permissions follow the logical library. An administrator does not bypass private-library read permission. No original files are modified. AI modes are configurable per library, disabled by default; manual classifications are protected.
+         */
+        get: operations["get_category_ai_tasks"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/category-ai/tasks/cancel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Cancel pending and running tasks
+         * @description Read and manage permissions follow the logical library. An administrator does not bypass private-library read permission. No original files are modified. AI modes are configurable per library, disabled by default; manual classifications are protected.
+         */
+        post: operations["post_category_ai_tasks_cancel"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/category-ai/tasks/retry": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Retry failed or cancelled tasks
+         * @description Read and manage permissions follow the logical library. An administrator does not bypass private-library read permission. No original files are modified. AI modes are configurable per library, disabled by default; manual classifications are protected.
+         */
+        post: operations["post_category_ai_tasks_retry"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/category-ai/tasks/review": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Apply or reject pending suggestions with revision protection
+         * @description Read and manage permissions follow the logical library. An administrator does not bypass private-library read permission. No original files are modified. AI modes are configurable per library, disabled by default; manual classifications are protected.
+         */
+        post: operations["post_category_ai_tasks_review"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/metadata/identify": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Preview or enqueue content identity and ordered catalog scraping
+         * @description Persisted enabled administrator role and logical-library read+manage are required. Private-library read is never bypassed. Content is bounded and explicitly previewed before AI. All name/part/catalog results remain pending; manual/version/source changes produce conflicts. Original files and reading positions are preserved.
+         */
+        post: operations["post_metadata_identify"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/metadata/identity-reviews": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List safe before/after identity suggestions
+         * @description Persisted enabled administrator role and logical-library read+manage are required. Private-library read is never bypassed. Content is bounded and explicitly previewed before AI. All name/part/catalog results remain pending; manual/version/source changes produce conflicts. Original files and reading positions are preserved.
+         */
+        get: operations["get_metadata_identity_reviews"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/metadata/identity-reviews/batch": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Apply or reject at most twenty suggestions independently
+         * @description Persisted enabled administrator role and logical-library read+manage are required. Private-library read is never bypassed. Content is bounded and explicitly previewed before AI. All name/part/catalog results remain pending; manual/version/source changes produce conflicts. Original files and reading positions are preserved.
+         */
+        post: operations["post_metadata_identity_reviews_batch"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/adapters/platforms": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List available novel platform plugins
+         * @description Administrator only. Members receive 403.
+         */
+        get: operations["get_platform_catalog"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/adapters/platforms/{kind}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Add a platform plugin (disabled by default)
+         * @description Administrator only. Members receive 403.
+         */
+        post: operations["post_platform_adapter"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/adapters/{id}/reader-sources": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Discover reader source selector without exposing rules
+         * @description Administrator only. Members receive 403.
+         */
+        get: operations["get_reader_sources"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -2875,37 +3271,40 @@ export interface components {
             id: number;
             name: string;
             /** @enum {string} */
-            kind: "sonovel" | "reader" | "legado";
+            kind: "sonovel" | "reader" | "legado" | "fanqie" | "qimao";
             enabled: boolean;
             supported?: boolean;
             /** @enum {string} */
-            engine?: "service" | "native" | "reader-compat";
+            engine?: "service" | "native" | "reader-compat" | "platform-web" | "platform-api" | "platform-reader";
             capabilities?: string[];
             /** @description Administrator only; omitted from member list. */
             base_url?: string;
             /** @description Administrator only; secret value is never returned. */
             has_secret?: boolean;
-            version?: number;
+            version?: number | string;
             subscription_id?: number | null;
             issues?: string[];
             created_at?: number;
             updated_at?: number;
+            limitations?: string[];
+            platform_config?: components["schemas"]["PlatformConfiguration"];
         };
         AdapterList: {
             items: components["schemas"]["Adapter"][];
             total: number;
         };
         AdapterConfig: {
-            name: string;
+            name?: string;
             /**
              * @description Creating legado directly is rejected; import a subscription first. Existing native plugins can be renamed/enabled here.
              * @enum {string}
              */
-            kind?: "sonovel" | "reader" | "legado";
+            kind?: "sonovel" | "reader" | "legado" | "fanqie" | "qimao";
             base_url?: string;
             enabled?: boolean;
             /** @description Service credential, encrypted at rest. Empty string retains the existing secret. */
             secret?: string;
+            platform_config?: components["schemas"]["PlatformConfigurationInput"];
         };
         SourceServiceInfo: {
             version: string;
@@ -3145,6 +3544,314 @@ export interface components {
         };
         CollectionRestore: {
             revision: number;
+        };
+        Category: {
+            /** Format: int64 */
+            id: number;
+            /** Format: int64 */
+            library_id: number;
+            /** @enum {string} */
+            content_kind: "book" | "comic";
+            /** Format: int64 */
+            parent_id: number | null;
+            name: string;
+            deleted: boolean;
+            /** Format: int64 */
+            revision: number;
+            /** Format: int64 */
+            book_count: number;
+            can_manage: boolean;
+        };
+        CategoryPage: {
+            items: components["schemas"]["Category"][];
+            /** Format: int64 */
+            total: number;
+        };
+        CategoryCreate: {
+            /** Format: int64 */
+            library_id: number;
+            name: string;
+            /** Format: int64 */
+            parent_id?: number | null;
+        };
+        CategoryEdit: {
+            name?: string;
+            /** Format: int64 */
+            parent_id?: number | null;
+            /** Format: int64 */
+            revision: number;
+        };
+        BookCategories: {
+            items: components["schemas"]["Category"][];
+            /** Format: int64 */
+            revision: number;
+            manual: boolean;
+            /** Format: int64 */
+            library_id: number;
+            /** @enum {string} */
+            content_kind: "book" | "comic";
+            can_manage: boolean;
+        };
+        BookCategoriesSet: {
+            ids: number[];
+            /** Format: int64 */
+            revision: number;
+        };
+        CategoryBulkSet: {
+            /** Format: int64 */
+            library_id: number;
+            books: {
+                /** Format: int64 */
+                id: number;
+                /** Format: int64 */
+                revision: number;
+            }[];
+            category_ids: number[];
+            /** @enum {string} */
+            mode?: "add" | "replace";
+        };
+        CategoryCollectionSet: {
+            /** Format: int64 */
+            library_id: number;
+            /** Format: int64 */
+            collection_id: number;
+            /** Format: int64 */
+            collection_revision: number;
+            category_ids: number[];
+            /** @enum {string} */
+            mode?: "add" | "replace";
+        };
+        CategoryAISettings: {
+            /** Format: int64 */
+            library_id: number;
+            /** @enum {string} */
+            content_kind: "book" | "comic";
+            ai_enabled: boolean;
+            /** @enum {string} */
+            ai_mode: "review" | "direct";
+            auto_new: boolean;
+            /** Format: int64 */
+            revision: number;
+            /** Format: int64 */
+            taxonomy_revision: number;
+            can_admin: boolean;
+            configured: boolean;
+        };
+        CategoryAISettingsSet: {
+            ai_enabled: boolean;
+            /** @enum {string} */
+            ai_mode: "review" | "direct";
+            auto_new: boolean;
+            /** Format: int64 */
+            revision: number;
+        };
+        CategoryAIEnqueue: {
+            /** Format: int64 */
+            library_id: number;
+            book_ids?: number[];
+            /** @default 50 */
+            limit: number;
+            /** @default false */
+            dry_run: boolean;
+        };
+        CategoryAIEnqueued: {
+            /** Format: int64 */
+            eligible: number;
+            /** Format: int64 */
+            queued: number;
+            /** Format: int64 */
+            skipped: number;
+            limit: number;
+            /** @enum {string} */
+            mode: "review" | "direct";
+        };
+        CategoryTask: {
+            /** Format: int64 */
+            id: number;
+            /** Format: int64 */
+            book_id: number;
+            title: string;
+            /** @enum {string} */
+            status: "pending" | "running" | "review" | "applied" | "skipped" | "failed" | "rejected" | "cancelled";
+            category_ids: number[];
+            confidence: number;
+            reason: string;
+            error: string;
+            /** Format: int64 */
+            created_at: number;
+            /** Format: int64 */
+            updated_at: number;
+        };
+        CategoryTasks: {
+            items: components["schemas"]["CategoryTask"][];
+            /** Format: int64 */
+            total: number;
+            /** Format: int64 */
+            page: number;
+            /** Format: int64 */
+            page_size: number;
+            counts: {
+                [key: string]: number;
+            };
+        };
+        CategoryTaskAction: {
+            /** Format: int64 */
+            library_id: number;
+            ids?: number[];
+        };
+        CategoryTaskReview: {
+            /** Format: int64 */
+            library_id: number;
+            ids: number[];
+            /** @enum {string} */
+            action: "apply" | "reject";
+        };
+        CategoryReviewResult: {
+            /** Format: int64 */
+            applied: number;
+            /** Format: int64 */
+            rejected: number;
+            conflicts: {
+                /** Format: int64 */
+                id: number;
+                reason: string;
+            }[];
+        };
+        IdentityRequest: {
+            book_ids?: number[];
+            /** Format: int64 */
+            library_id?: number;
+            /** @enum {string} */
+            filter?: "suspicious_title" | "all";
+            q?: string;
+            /** @enum {string} */
+            format?: "txt" | "epub" | "mobi" | "pdf";
+            providers?: ("openlibrary" | "google" | "neodb")[];
+            /** @default 50 */
+            limit: number;
+            /** @default false */
+            dry_run: boolean;
+        };
+        IdentityEnqueueResult: {
+            total: number;
+            eligible: number;
+            enqueued: number;
+            reused: number;
+            skipped: number;
+            failed: {
+                /** Format: int64 */
+                id: number;
+                reason: string;
+            }[];
+            dry_run: boolean;
+            providers: ("openlibrary" | "google" | "neodb")[];
+        };
+        ContentIdentification: {
+            work_title?: string;
+            author?: string;
+            part_title?: string;
+            part_number?: number;
+            part_label?: string;
+            confidence?: number;
+            reason?: string;
+            evidence?: string;
+        };
+        IdentityReview: {
+            /** Format: int64 */
+            id: number;
+            /** Format: int64 */
+            book_id: number;
+            title: string;
+            /** @enum {string} */
+            status: "pending" | "applied" | "rejected";
+            created_at: number;
+            before: {
+                title?: string;
+                author?: string;
+                description?: string;
+                series_name?: string;
+                volume_label?: string;
+                has_cover?: boolean;
+            };
+            candidate: {
+                title?: string;
+                author?: string;
+                description?: string;
+                series?: string;
+                volume_label?: string;
+                cover_url?: string;
+                has_cover?: boolean;
+            };
+            identification: components["schemas"]["ContentIdentification"];
+            sources: {
+                provider?: string;
+                status?: string;
+                note?: string;
+            }[];
+            can_apply: boolean;
+        };
+        IdentityReviewPage: {
+            items: components["schemas"]["IdentityReview"][];
+            total: number;
+            /** Format: int64 */
+            page: number;
+            /** Format: int64 */
+            page_size: number;
+        };
+        IdentityReviewBatch: {
+            ids: number[];
+            /** @enum {string} */
+            action: "apply" | "reject";
+        };
+        IdentityReviewBatchResult: {
+            applied: number;
+            rejected: number;
+            failed: {
+                /** Format: int64 */
+                id: number;
+                reason: string;
+            }[];
+        };
+        /** @description Administrator only. Token is never returned. */
+        PlatformConfiguration: {
+            /** @enum {string} */
+            mode: "web" | "api" | "reader";
+            api_base_url?: string;
+            reader_adapter_id?: number;
+            source_key?: string;
+            has_api_token: boolean;
+        };
+        /** @description Partial updates merge with existing mode. Blank token retains only on same API endpoint. Endpoint or mode change clears old token. Changing source identity after binding/import is rejected with 409. */
+        PlatformConfigurationInput: {
+            /** @enum {string} */
+            mode?: "web" | "api" | "reader";
+            api_base_url?: string;
+            reader_adapter_id?: number;
+            source_key?: string;
+            api_token?: string;
+            clear_api_token?: boolean;
+        };
+        PlatformDescriptor: {
+            /** @enum {string} */
+            kind: "fanqie" | "qimao";
+            name: string;
+            origin: string;
+            version: string;
+            capabilities: string[];
+            limitations: string[];
+        };
+        ReaderSource: {
+            key: string;
+            name: string;
+            enabled: boolean;
+        };
+        PlatformCatalog: {
+            items: components["schemas"]["PlatformDescriptor"][];
+            total: number;
+        };
+        ReaderSourceList: {
+            items: components["schemas"]["ReaderSource"][];
+            total: number;
         };
     };
     responses: never;
@@ -5530,6 +6237,7 @@ export interface operations {
                 page_size?: number;
                 content_kind?: "book" | "comic";
                 logical_library?: 1;
+                category?: string;
             };
             header?: never;
             path?: never;
@@ -9989,8 +10697,11 @@ export interface operations {
     get_api_v1_books_manage: {
         parameters: {
             query?: {
+                /** @description Includes suspicious_title as a suggestion filter; it does not automatically rename content. */
                 filter?: string;
                 library?: string;
+                /** @description When 1, library filters logical books.library_id only. Content identity discovery opts in; ordinary management retains physical-or-logical membership. */
+                logical_library?: 0 | 1;
                 format?: string;
                 q?: string;
                 sort?: string;
@@ -14589,6 +15300,1640 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+        };
+    };
+    get_categories: {
+        parameters: {
+            query?: {
+                library?: number;
+                content_kind?: "book" | "comic";
+                deleted?: 0 | 1;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CategoryPage"];
+                };
+            };
+            /** @description Invalid input */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Authentication required */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Required role or library management missing */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Hidden or missing */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Stale revision or cancellation */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description License unavailable */
+            423: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    post_categories: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CategoryCreate"];
+            };
+        };
+        responses: {
+            /** @description Success */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Category"];
+                };
+            };
+            /** @description Invalid input */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Authentication required */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Required role or library management missing */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Hidden or missing */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Stale revision or cancellation */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description License unavailable */
+            423: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    delete_categories_id: {
+        parameters: {
+            query: {
+                revision: number;
+            };
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Invalid input */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Authentication required */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Required role or library management missing */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Hidden or missing */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Stale revision or cancellation */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description License unavailable */
+            423: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    patch_categories_id: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CategoryEdit"];
+            };
+        };
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Category"];
+                };
+            };
+            /** @description Invalid input */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Authentication required */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Required role or library management missing */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Hidden or missing */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Stale revision or cancellation */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description License unavailable */
+            423: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    post_categories_id_restore: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: int64 */
+                    revision: number;
+                };
+            };
+        };
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Category"];
+                };
+            };
+            /** @description Invalid input */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Authentication required */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Required role or library management missing */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Hidden or missing */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Stale revision or cancellation */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description License unavailable */
+            423: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    post_categories_defaults: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: int64 */
+                    library_id: number;
+                };
+            };
+        };
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CategoryPage"];
+                };
+            };
+            /** @description Invalid input */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Authentication required */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Required role or library management missing */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Hidden or missing */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Stale revision or cancellation */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description License unavailable */
+            423: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    get_books_id_categories: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BookCategories"];
+                };
+            };
+            /** @description Invalid input */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Authentication required */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Required role or library management missing */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Hidden or missing */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Stale revision or cancellation */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description License unavailable */
+            423: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    put_books_id_categories: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["BookCategoriesSet"];
+            };
+        };
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BookCategories"];
+                };
+            };
+            /** @description Invalid input */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Authentication required */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Required role or library management missing */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Hidden or missing */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Stale revision or cancellation */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description License unavailable */
+            423: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    post_categories_assign: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CategoryBulkSet"];
+            };
+        };
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: int64 */
+                        updated: number;
+                    };
+                };
+            };
+            /** @description Invalid input */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Authentication required */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Required role or library management missing */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Hidden or missing */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Stale revision or cancellation */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description License unavailable */
+            423: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    post_categories_assign_collection: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CategoryCollectionSet"];
+            };
+        };
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: int64 */
+                        updated: number;
+                    };
+                };
+            };
+            /** @description Invalid input */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Authentication required */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Required role or library management missing */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Hidden or missing */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Stale revision or cancellation */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description License unavailable */
+            423: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    get_category_ai_settings: {
+        parameters: {
+            query: {
+                library: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CategoryAISettings"];
+                };
+            };
+            /** @description Invalid input */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Authentication required */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Required role or library management missing */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Hidden or missing */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Stale revision or cancellation */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description License unavailable */
+            423: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    put_category_ai_settings: {
+        parameters: {
+            query: {
+                library: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CategoryAISettingsSet"];
+            };
+        };
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CategoryAISettings"];
+                };
+            };
+            /** @description Invalid input */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Authentication required */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Required role or library management missing */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Hidden or missing */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Stale revision or cancellation */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description License unavailable */
+            423: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    post_category_ai_enqueue: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CategoryAIEnqueue"];
+            };
+        };
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CategoryAIEnqueued"];
+                };
+            };
+            /** @description Invalid input */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Authentication required */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Required role or library management missing */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Hidden or missing */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Stale revision or cancellation */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description License unavailable */
+            423: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    get_category_ai_tasks: {
+        parameters: {
+            query: {
+                library: number;
+                status?: "pending" | "running" | "review" | "applied" | "skipped" | "failed" | "rejected" | "cancelled";
+                page?: number;
+                page_size?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CategoryTasks"];
+                };
+            };
+            /** @description Invalid input */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Authentication required */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Required role or library management missing */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Hidden or missing */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Stale revision or cancellation */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description License unavailable */
+            423: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    post_category_ai_tasks_cancel: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CategoryTaskAction"];
+            };
+        };
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: int64 */
+                        cancelled: number;
+                    };
+                };
+            };
+            /** @description Invalid input */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Authentication required */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Required role or library management missing */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Hidden or missing */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Stale revision or cancellation */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description License unavailable */
+            423: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    post_category_ai_tasks_retry: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CategoryTaskAction"];
+            };
+        };
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: int64 */
+                        retried: number;
+                        /** Format: int64 */
+                        skipped: number;
+                    };
+                };
+            };
+            /** @description Invalid input */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Authentication required */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Required role or library management missing */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Hidden or missing */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Stale revision or cancellation */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description License unavailable */
+            423: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    post_category_ai_tasks_review: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CategoryTaskReview"];
+            };
+        };
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CategoryReviewResult"];
+                };
+            };
+            /** @description Invalid input */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Authentication required */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Required role or library management missing */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Hidden or missing */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Stale revision or cancellation */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description License unavailable */
+            423: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    post_metadata_identify: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["IdentityRequest"];
+            };
+        };
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["IdentityEnqueueResult"];
+                };
+            };
+            /** @description Invalid input */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Authentication required */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Administrator or management access missing */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Hidden or missing */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Metadata or source snapshot changed */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Activation unavailable */
+            423: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    get_metadata_identity_reviews: {
+        parameters: {
+            query?: {
+                status?: "pending" | "applied" | "rejected";
+                library?: number;
+                page?: number;
+                page_size?: number;
+                q?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["IdentityReviewPage"];
+                };
+            };
+            /** @description Invalid input */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Authentication required */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Administrator or management access missing */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Hidden or missing */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Metadata or source snapshot changed */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Activation unavailable */
+            423: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    post_metadata_identity_reviews_batch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["IdentityReviewBatch"];
+            };
+        };
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["IdentityReviewBatchResult"];
+                };
+            };
+            /** @description Invalid input */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Authentication required */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Administrator or management access missing */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Hidden or missing */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Metadata or source snapshot changed */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Activation unavailable */
+            423: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    get_platform_catalog: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PlatformCatalog"];
+                };
+            };
+            /** @description Invalid request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Authentication required */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Administrator required for management operations */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Not found or not visible to this account */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description State or revision conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Active upload/download quota exceeded; retry after a request completes */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Internal error */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Upstream source unavailable or invalid */
+            502: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+        };
+    };
+    post_platform_adapter: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                kind: "fanqie" | "qimao";
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": {
+                    name?: string;
+                    /** @default false */
+                    enabled?: boolean;
+                    platform_config?: components["schemas"]["PlatformConfigurationInput"];
+                };
+            };
+        };
+        responses: {
+            /** @description Success */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Adapter"];
+                };
+            };
+            /** @description Invalid request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Authentication required */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Administrator required for management operations */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Not found or not visible to this account */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description State or revision conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Active upload/download quota exceeded; retry after a request completes */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Internal error */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Upstream source unavailable or invalid */
+            502: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+        };
+    };
+    get_reader_sources: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReaderSourceList"];
+                };
+            };
+            /** @description Invalid request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Authentication required */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Administrator required for management operations */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Not found or not visible to this account */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description State or revision conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Active upload/download quota exceeded; retry after a request completes */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Internal error */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description Upstream source unavailable or invalid */
+            502: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
             };
         };
     };
