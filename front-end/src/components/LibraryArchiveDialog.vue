@@ -1,0 +1,7 @@
+<script setup lang="ts">
+import {onMounted,ref} from 'vue';import {api} from '../state';import {createLibraryApi,type LibraryRef} from '../api/libraries';import {errorMessage} from '../api/errors';
+const props=defineProps<{library:LibraryRef}>(),emit=defineEmits<{close:[];archived:[]}>(),client=createLibraryApi(api),detail=ref<LibraryRef>(props.library),loading=ref(true),ready=ref(false),busy=ref(false),error=ref('');
+onMounted(async()=>{try{detail.value=await client.library(props.library.id,true);ready.value=true}catch(e){error.value=errorMessage(e)}finally{loading.value=false}});
+async function archive(){busy.value=true;error.value='';try{await client.archive(props.library.id);emit('archived');emit('close')}catch(e){error.value=errorMessage(e)}finally{busy.value=false}}
+</script>
+<template><div class="modal-backdrop" @click.self="!busy&&emit('close')"><section class="sheet" role="dialog" aria-modal="true" aria-label="删除书库确认"><h2>删除「{{library.name}}」</h2><p v-if="loading" role="status">正在读取影响范围…</p><template v-else><p>{{detail.book_count??'—'}} {{library.content_kind==='comic'?'册漫画':'本图书'}}，{{detail.job_count??'—'}} 个关联任务。</p><p>删除后书库将归档，授权成员无法再打开其中内容，运行中的导入和扫描会停止。原文件、阅读记录和授权保留，可在书库管理中恢复。</p></template><p v-if="error" role="alert" class="error">{{error}}</p><div class="row-actions"><button class="primary" :disabled="loading||busy||!ready" @click="archive">{{busy?'正在归档…':'确认删除书库'}}</button><button :disabled="busy" @click="emit('close')">取消</button></div></section></div></template>

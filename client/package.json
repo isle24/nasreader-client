@@ -1,0 +1,12 @@
+{
+  "name": "nasreader-client",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "tauri dev",
+    "build:mac": "tauri build --bundles app",
+    "build:windows": "tauri build --bundles nsis,msi --target x86_64-pc-windows-msvc",
+    "build:linux": "tauri build --bundles appimage,deb,rpm --target x86_64-unknown-linux-gnu"
+  },
+  "devDependencies": {"@tauri-apps/cli": "^2.10.1"}
+}

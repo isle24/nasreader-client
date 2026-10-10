@@ -1,0 +1,97 @@
+name: Desktop packages
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: desktop-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: ${{ matrix.id }}
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - id: windows-x64
+            runner: windows-2022
+            platform: windows
+            arch: x64
+            target: x86_64-pc-windows-msvc
+            bundles: nsis,msi
+          - id: macos-arm64
+            runner: macos-15
+            platform: macos
+            arch: arm64
+            target: aarch64-apple-darwin
+            bundles: app,dmg
+          - id: macos-x64
+            runner: macos-15-intel
+            platform: macos
+            arch: x64
+            target: x86_64-apple-darwin
+            bundles: app,dmg
+          - id: linux-x64
+            runner: ubuntu-22.04
+            platform: linux
+            arch: x64
+            target: x86_64-unknown-linux-gnu
+            bundles: appimage,deb,rpm
+          - id: linux-arm64
+            runner: ubuntu-22.04-arm
+            platform: linux
+            arch: arm64
+            target: aarch64-unknown-linux-gnu
+            bundles: appimage,deb,rpm
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Verify client-only source and checksums
+        run: python scripts/verify_export.py
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: |
+            front-end/package-lock.json
+            client/package-lock.json
+      - uses: dtolnay/rust-toolchain@686976e191b89faba57d3206551f0f330d8cb249 # stable
+        with:
+          targets: ${{ matrix.target }}
+      - uses: Swatinem/rust-cache@49a0bdc70d2e1b713ca9e2869b211fcce03d3c1c # v2
+        with:
+          workspaces: client/src-tauri -> target
+          key: ${{ matrix.id }}
+          cache-on-failure: true
+      - name: Linux desktop dependencies
+        if: matrix.platform == 'linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev patchelf libssl-dev libdbus-1-dev libxdo-dev rpm
+      - name: Install locked client dependencies and build frontend
+        run: |
+          npm --prefix front-end ci
+          npm --prefix client ci
+          npm --prefix front-end run build
+      - name: Native Rust tests
+        run: cargo test --manifest-path client/src-tauri/Cargo.toml --locked --lib --tests --target ${{ matrix.target }}
+      - name: Build native desktop packages
+        working-directory: client
+        run: npx tauri build --ci --target ${{ matrix.target }} --bundles ${{ matrix.bundles }} -- --locked
+      - name: Collect packages, build information and SHA256
+        run: python scripts/collect_artifacts.py --platform ${{ matrix.platform }} --arch ${{ matrix.arch }} --target ${{ matrix.target }} --output artifacts/${{ matrix.id }}
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: nasReader-${{ matrix.id }}
+          path: artifacts/${{ matrix.id }}/*
+          if-no-files-found: error
+          retention-days: 30

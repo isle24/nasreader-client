@@ -1,0 +1,1 @@
+{"identifier":"main","description":"Local bundled reader window. No native permissions for remote pages.","windows":["main"],"permissions":["core:default"]}

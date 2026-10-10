@@ -1,0 +1,51 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "nasReader",
+  "version": "0.1.0",
+  "identifier": "com.isle.nasreader",
+  "build": {
+    "beforeDevCommand": "npm --prefix ../front-end run dev -- --host 127.0.0.1",
+    "devUrl": "http://127.0.0.1:5173",
+    "beforeBuildCommand": "npm --prefix ../front-end run build",
+    "frontendDist": "../../front-end/dist"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "label": "main",
+        "title": "nasReader",
+        "width": 1160,
+        "height": 800,
+        "minWidth": 360,
+        "minHeight": 540
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self' blob:; script-src 'self'; style-src 'self' 'unsafe-inline' blob:; connect-src 'self' ipc: http://ipc.localhost http: https:; img-src 'self' asset: http://asset.localhost data: blob:; font-src 'self' data: blob:; frame-src 'self' blob:; media-src 'self' blob: data:; object-src 'none'; base-uri 'self'",
+      "capabilities": [
+        "main"
+      ]
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": [
+      "app"
+    ],
+    "icon": [
+      "icons/icon.icns",
+      "icons/icon.png",
+      "icons/icon.ico"
+    ],
+    "resources": {
+      "../../LICENSE": "LICENSE",
+      "../THIRD_PARTY_NOTICES.md": "THIRD_PARTY_NOTICES.md"
+    },
+    "macOS": {
+      "minimumSystemVersion": "11.0",
+      "entitlements": "Entitlements.plist",
+      "signingIdentity": "-"
+    }
+  }
+}
