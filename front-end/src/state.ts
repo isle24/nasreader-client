@@ -7,7 +7,6 @@ import {defaultServer,normalizeServer} from './reader/core';
 import {pendingMutations,removeMutation,cachedBooks,removeCachedBooks} from './api/cache';
 import {checkBookAccess} from './api/access';
 import {errorMessage,isOffline} from './api/errors';
-import type {LicenseStatus} from './licensing';
 
 function readServer():string{try{return localStorage.getItem('nasreader.server')??''}catch{return ''}}
 function writeServer(value:string){try{localStorage.setItem('nasreader.server',value)}catch{/* private mode */ }}
@@ -18,10 +17,10 @@ const saved=readServer();
 
 export const state=reactive({
   ready:false,
+  loginEpoch:0,
   native,
   server:saved||defaultServer({native}),
   user:null as Session['user']|null,
-  license:null as LicenseStatus|null,
   error:'',
   offline:!navigator.onLine,
   syncMessage:'',
@@ -37,7 +36,6 @@ export const state=reactive({
   serverReachable:false,
 });
 export const api=new ApiClient(state.server,new PersistentSessions());
-
 /** True when the app discovers its own server and must not ask for an address. */
 export const autoServer=()=>!!state.server&&!state.native;
 
@@ -45,7 +43,6 @@ export const autoServer=()=>!!state.server&&!state.native;
 export async function connect(server?:string,manual=false){
   const requested=normalizeServer(server??state.server);
   if(!requested)throw new Error('请输入服务地址，例如 http://192.168.3.56:18089');
-  if(state.server!==requested)state.license=null;
   state.server=requested;
   state.serverLocked=!manual&&!state.native;
   state.serverManual=manual&&!state.native;
@@ -61,7 +58,6 @@ export async function connect(server?:string,manual=false){
 export async function resetServer(){
   const fallback=defaultServer({native});
   try{localStorage.removeItem('nasreader.server')}catch{/* private mode */}
-  state.license=null;
   state.server=fallback;
   state.serverLocked=!native;
   state.serverManual=false;

@@ -227,7 +227,6 @@ watch([isImport,isAdmin],()=>{
 <div class="page-title"><div><h1>{{isImport?'导入与书库':settingsSection==='sources'?'外部书源':settingsSection==='speech'?'朗读设置':'我的书房'}}</h1><p>{{state.user?.username}} · {{isAdmin?'管理员':'家庭成员'}}</p></div><button v-if="!isImport" @click="logout">退出登录</button></div>
 <p v-if="error" role="alert" class="error">{{error}}</p>
 <p v-if="message" role="status" class="status-banner">{{message}}</p>
-<section v-if="isAdmin&&!isImport&&!settingsSection&&state.license" class="panel"><h2>NAS 授权设备</h2><p>设备码：<code style="overflow-wrap:anywhere">{{state.license.instance_id}}</code></p><p v-if="state.license.max_devices">本授权最多可绑定 {{state.license.max_devices}} 台设备。</p><p>更新或重建容器时保留 NAS 数据目录，设备码会保持不变。</p></section>
 
 <template v-if="isImport||!!settingsSection">
 <section v-if="isImport" class="panel"><h2>上传一本书</h2>

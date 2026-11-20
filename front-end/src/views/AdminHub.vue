@@ -7,7 +7,6 @@ import {useRouter} from 'vue-router';
 import {state} from '../state';
 const router=useRouter();
 const entries=[
-  {to:'/admin/license',title:'授权与续期',detail:'查看 NAS 实例授权、到期时间，兑换新的激活码'},
   {to:'/admin/users',title:'用户管理',detail:'分页搜索、创建、停用、恢复和用户库授权'},
   {to:'/admin/libraries',title:'书库管理',detail:'个人与共享书库、授权、归档和恢复'},
   {to:'/import',title:'导入与书库',detail:'上传图书、挂载 NAS 目录、扫描与导入任务、外部书源连接'},

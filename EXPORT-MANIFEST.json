@@ -1,5 +1,5 @@
 {
-  "source_commit": "21234c3bbe8493129064b7636d326d4373850d26",
+  "source_commit": "0b2711e1a00c6482e0b817faeff556f7c76de7ac",
   "server_included": false,
   "history_included": false,
   "files": {
@@ -21,7 +21,7 @@
     },
     "README.md": {
       "source": "client/README.md",
-      "sha256": "5b90310a2d23db574ee672d5c96cdb72db5ebaba6edebfb5d02df0be880406cc"
+      "sha256": "f20bbeae720c2e12a231f4c6db31b5fbd0789702a00f0b3c111f1f2a75754532"
     },
     "THIRD_PARTY_NOTICES.md": {
       "source": "client/THIRD_PARTY_NOTICES.md",
@@ -29,7 +29,7 @@
     },
     "client/README.md": {
       "source": "client/README.md",
-      "sha256": "5b90310a2d23db574ee672d5c96cdb72db5ebaba6edebfb5d02df0be880406cc"
+      "sha256": "f20bbeae720c2e12a231f4c6db31b5fbd0789702a00f0b3c111f1f2a75754532"
     },
     "client/THIRD_PARTY_NOTICES.md": {
       "source": "client/THIRD_PARTY_NOTICES.md",
@@ -41,19 +41,19 @@
     },
     "client/package-lock.json": {
       "source": "client/package-lock.json",
-      "sha256": "f2add62be3c042b7e3b8a764f286fb1b7f648ee3819d3b780048932784ee2cba"
+      "sha256": "8e44d7280f42173f9c0ea91ea674cc7192b9b50b8f644ff933009ab0345e85f3"
     },
     "client/package.json": {
       "source": "client/package.json",
-      "sha256": "4d59bf7fe7e2b3b8e1971b09b3c31e6becf2eb57f8adffce30ec244e175d6e60"
+      "sha256": "3bc77c7b6d0f3e7c312c69fd0cad7aff1d4c9f2b47b6ae5bc0a45f0437fd5d43"
     },
     "client/src-tauri/Cargo.lock": {
       "source": "client/src-tauri/Cargo.lock",
-      "sha256": "a83bf90546c720418fb27e10aeebacf0c5191289dca2040fd97b3d47300794ca"
+      "sha256": "485ec3a8cc6018fe1c4a13c436cbb193d333b318e3656eb91127f111b9c74468"
     },
     "client/src-tauri/Cargo.toml": {
       "source": "client/src-tauri/Cargo.toml",
-      "sha256": "09c0b3fa70dad6f160d5f157c92841a08e44626fa77ff30427d5f0fc1261c835"
+      "sha256": "79fa7165d2e1692a912ce95de0d8bf7a11da2b28c356abad40867862c0e8c30e"
     },
     "client/src-tauri/Entitlements.plist": {
       "source": "client/src-tauri/Entitlements.plist",
@@ -109,7 +109,7 @@
     },
     "client/src-tauri/tauri.conf.json": {
       "source": "client/src-tauri/tauri.conf.json",
-      "sha256": "cc0bd6299854750c55730a8a964b984f90c274021a5f6e1ca88d5875a0bfa962"
+      "sha256": "777587b7a95381593e9b7c847de35e257ea582911aab298e258cebf4ebf8d445"
     },
     "client/src-tauri/tauri.windows.conf.json": {
       "source": "client/src-tauri/tauri.windows.conf.json",
@@ -141,7 +141,7 @@
     },
     "front-end/src/App.vue": {
       "source": "front-end/src/App.vue",
-      "sha256": "ecf18b1d532e900743b184bdce329b4c8e07baa232b6613cb10a0a5d3787c3bf"
+      "sha256": "4537222c510ccb199c36d67d9fad851a726e2d603d8f209cc23231057c442562"
     },
     "front-end/src/api/access.ts": {
       "source": "front-end/src/api/access.ts",
@@ -161,7 +161,7 @@
     },
     "front-end/src/api/client.ts": {
       "source": "front-end/src/api/client.ts",
-      "sha256": "8a63f624f13809a14e9a6026e37f86707b4421216cca6e98e094987d02e6502f"
+      "sha256": "1cb4e9ed444373d9dc3facdf33885e797456655c4ee05458610b75ac05e4172f"
     },
     "front-end/src/api/collections.ts": {
       "source": "front-end/src/api/collections.ts",
@@ -197,7 +197,7 @@
     },
     "front-end/src/api/schema.ts": {
       "source": "front-end/src/api/schema.ts",
-      "sha256": "3c4e324566553c51d6f991f3c8b0a2f196ac19760b78937c2135e8159577e103"
+      "sha256": "f02f2d662052b3d23cd66c6d6187f73814748a931eff09a1a131fb37784a157a"
     },
     "front-end/src/api/sourcePlugins.ts": {
       "source": "front-end/src/api/sourcePlugins.ts",
@@ -265,7 +265,7 @@
     },
     "front-end/src/components/PlatformSources.vue": {
       "source": "front-end/src/components/PlatformSources.vue",
-      "sha256": "267826d8cdb338af51b87c622064ce73456184c8ffdb81571b0f39190ff99d9f"
+      "sha256": "5a2bd849d0dd23f6985a6170191f89d5ba44027404f6d53f669aaaee8969cc9c"
     },
     "front-end/src/components/ReaderCatalog.vue": {
       "source": "front-end/src/components/ReaderCatalog.vue",
@@ -291,13 +291,9 @@
       "source": "front-end/src/identitySelection.ts",
       "sha256": "f5fd91bd76d200347077f0bf73a5ea7d54ac0eadc00c1618c31883cdeebd910f"
     },
-    "front-end/src/licensing.ts": {
-      "source": "front-end/src/licensing.ts",
-      "sha256": "2ae5a306bdf1c3fd3de1aaff845bb89559477b6c826cc253cc4476dfa3514f1e"
-    },
     "front-end/src/main.ts": {
       "source": "front-end/src/main.ts",
-      "sha256": "7e5b1bc765da49857cf9496b173213ee11777fa5f7e004069b6dc992bc71b8a5"
+      "sha256": "73fab7ad0bdff94ecc710dca7d8237726e71ee2453be42d73597dc61753589dc"
     },
     "front-end/src/reader/comic.ts": {
       "source": "front-end/src/reader/comic.ts",
@@ -389,7 +385,7 @@
     },
     "front-end/src/state.ts": {
       "source": "front-end/src/state.ts",
-      "sha256": "e341b0a4f7fb6b1dc422bde52de9669c15a273466d1ba83766978c64e137798c"
+      "sha256": "0b972014d55172c1b8bbb928fe9f58408aa8bbb3bbbb68abbc4f6258dce64471"
     },
     "front-end/src/style.css": {
       "source": "front-end/src/style.css",
@@ -401,11 +397,11 @@
     },
     "front-end/src/views/AdminHub.vue": {
       "source": "front-end/src/views/AdminHub.vue",
-      "sha256": "cd7de9bfd29d9908e01e462fd55af49023c68dcbde094793440ab91ce84fc8ce"
+      "sha256": "82e09e76c0d93bdd62e2d196c3a711c286a415c97d1ba393a3ba3056bcbc8980"
     },
     "front-end/src/views/AdminIdentity.vue": {
       "source": "front-end/src/views/AdminIdentity.vue",
-      "sha256": "10be226df2d5f59d8d01cc4c9d78167bb9f8a4a474d73e1257ea834ba7cc071d"
+      "sha256": "de33d625b3d52feca11007752a2417ea8969f4deb6254d5425fb88165dadca4f"
     },
     "front-end/src/views/AdminLibraries.vue": {
       "source": "front-end/src/views/AdminLibraries.vue",
@@ -421,7 +417,7 @@
     },
     "front-end/src/views/Auth.vue": {
       "source": "front-end/src/views/Auth.vue",
-      "sha256": "af0fbbceb2234d18f9f4c5b9ccb99ab1d8b0d4a4a805dfc69815a80c33df9ae9"
+      "sha256": "756bcb4ce5962b4d8b1aeb9e0b2c02111bdbd5f3baba088f28d64303eb85a073"
     },
     "front-end/src/views/Categories.vue": {
       "source": "front-end/src/views/Categories.vue",
@@ -443,13 +439,9 @@
       "source": "front-end/src/views/Library.vue",
       "sha256": "287df46108abafe4343e8b4093d54645d136d1154bc4e0328104e1d91b9c97de"
     },
-    "front-end/src/views/License.vue": {
-      "source": "front-end/src/views/License.vue",
-      "sha256": "439756a87626700bf1fab431140c7621eac2c8663205903f02cca0b2506beb89"
-    },
     "front-end/src/views/Manage.vue": {
       "source": "front-end/src/views/Manage.vue",
-      "sha256": "a443fc6966b80cede02db11cec749298caeedda1c0f5fb5ce772530028e40ef3"
+      "sha256": "3fa87ebce0f40633224a9bdef4ae6eadbc5069d634f9c12679b97180f4edda67"
     },
     "front-end/src/views/Reader.vue": {
       "source": "front-end/src/views/Reader.vue",

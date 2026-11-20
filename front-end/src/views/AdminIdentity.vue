@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {computed, onBeforeUnmount, onMounted, ref, watch} from 'vue';
 import {api, state} from '../state';
-import {mayReadWithLease} from '../licensing';
 import {integrationError} from '../api/errors';
 import {fetchLibraries} from '../api/management';
 import {cancelScrapeEntry, fetchAIConfig, fetchScrapeQueue, retryFailedScrapes, type ScrapeQueueEntry} from '../api/metadata';
@@ -11,7 +10,7 @@ import IdentityProviders from '../components/IdentityProviders.vue';
 import IdentityReviewCard from '../components/IdentityReviewCard.vue';
 
 const isAdmin = computed(() => state.user?.role === 'admin');
-const accountKey = computed(() => JSON.stringify([state.server, state.user?.id, state.user?.role, state.accessEpoch]));
+const accountKey = computed(() => JSON.stringify([state.server, state.user?.id, state.user?.role, state.loginEpoch, state.accessEpoch]));
 const handoff = ref<number[]>([]);
 const library = ref(''), filter = ref<'suspicious_title' | 'all'>('suspicious_title'), format = ref<IdentityFormat>(''), q = ref('');
 const providers = ref<IdentityProvider[]>(['openlibrary', 'google', 'neodb']);
@@ -22,7 +21,7 @@ const busy = ref(false), cancelled = ref(false), progress = ref({done: 0, total:
 const preview = ref<IdentityPreview | null>(null);
 const failures = ref<IdentityFailure[]>([]);
 const scopeKey = computed(() => JSON.stringify([accountKey.value, library.value, filter.value, format.value, q.value.trim(), providers.value, handoff.value]));
-const active = (key: string, current: () => string) => isAdmin.value && accountKey.value.length > 0 && mayReadWithLease(state.license) && current() === key;
+const active = (key: string, current: () => string) => isAdmin.value && accountKey.value.length > 0  && current() === key;
 const scopeName = computed(() => handoff.value.length ? `书籍管理选中的 ${handoff.value.length} 本` : `${libraries.value.find(item => String(item.id) === library.value)?.name ?? '所有可访问书库'} · ${filter.value==='suspicious_title'?'疑似错误书名':'全部名称'}${format.value?' · '+format.value.toUpperCase():''}${q.value.trim()?' · 关键词「'+q.value.trim()+'」':''}`);
 watch(scopeKey, () => {preview.value = null; cancelled.value = true});
 watch(accountKey, () => {
@@ -32,6 +31,7 @@ watch(accountKey, () => {
 }, {flush: 'sync'});
 function discardHandoff() {handoff.value = []; preview.value = null}
 async function makePreview() {
+
   const key = scopeKey.value, current = () => active(key, () => scopeKey.value);
   if (!current() || busy.value || !aiConfigured.value) return;
   busy.value = true; cancelled.value = false; error.value = ''; message.value = ''; failures.value = []; preview.value = null;
@@ -158,6 +158,7 @@ async function cancelOne(entry: ScrapeQueueEntry) {
   catch (e) {if (key === accountKey.value) queueError.value = integrationError('取消识别任务', e)}
 }
 async function retryQueue() {
+
   const key = accountKey.value;
   try {const result = await retryFailedScrapes(api); if (active(key, () => accountKey.value)) {message.value = `共享队列已重新排队 ${result.retried ?? result.requeued ?? 0} 条失败任务。`; await refreshQueue()}}
   catch (e) {if (key === accountKey.value) queueError.value = integrationError('重试共享队列', e)}

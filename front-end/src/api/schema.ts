@@ -1871,32 +1871,13 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * Read NAS activation state
-         * @description Available while the business API is locked. Calendar display is Asia/Shanghai; values are UTC Unix milliseconds.
+         * Legacy desktop compatibility status
+         * @deprecated
+         * @description Deprecated. Older signed-in desktop clients receive an always-available status. Current Web and desktop clients use the regular APIs without activation.
          */
         get: operations["getLicenseStatus"];
         put?: never;
         post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/license/activate": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Activate or renew this NAS installation
-         * @description Administrator only. One code is redeemed once and is bound to this NAS instance.
-         */
-        post: operations["activateLicense"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2485,6 +2466,12 @@ export interface components {
                 code: string;
                 message: string;
             };
+            /**
+             * @description Present on license_required responses.
+             * @enum {string}
+             */
+            feature?: "directory_import" | "external_sources" | "ai";
+            license?: components["schemas"]["LicenseStatus"];
         };
         Setup: {
             required: boolean;
@@ -3419,7 +3406,7 @@ export interface components {
         };
         LicenseStatus: {
             /** @enum {string} */
-            state: "checking" | "unactivated" | "active" | "network_grace" | "expired" | "revoked" | "conflict" | "clock_error";
+            state: "checking" | "unactivated" | "active" | "network_grace" | "expired" | "revoked" | "conflict" | "clock_error" | "device_replaced";
             instance_id: string;
             public_key: string;
             /**
@@ -3443,6 +3430,18 @@ export interface components {
             /** Format: int64 */
             device_id?: number;
             max_devices?: number;
+            /**
+             * @description Basic uploads and reading remain available without an active lease.
+             * @enum {string}
+             */
+            edition: "basic" | "activated";
+            features: {
+                reading: boolean;
+                upload_import: boolean;
+                directory_import: boolean;
+                external_sources: boolean;
+                ai: boolean;
+            };
         };
         LibraryUpdate: {
             name?: string;
@@ -14263,7 +14262,7 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description Current activation state */
+            /** @description Compatibility status for older clients */
             200: {
                 headers: {
                     [name: string]: unknown;
@@ -14274,59 +14273,6 @@ export interface operations {
             };
             /** @description Authentication required */
             401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-        };
-    };
-    activateLicense: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": {
-                    code: string;
-                };
-            };
-        };
-        responses: {
-            /** @description Activated state */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["LicenseStatus"];
-                };
-            };
-            /** @description Authentication required */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Administrator required */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-            /** @description Invalid or used code */
-            409: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -14829,13 +14775,6 @@ export interface operations {
                 };
                 content?: never;
             };
-            /** @description License unavailable */
-            423: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
         };
     };
     post_api_v1_collections: {
@@ -14890,13 +14829,6 @@ export interface operations {
             };
             /** @description Stale revision or cancellation */
             409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description License unavailable */
-            423: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -14959,13 +14891,6 @@ export interface operations {
                 };
                 content?: never;
             };
-            /** @description License unavailable */
-            423: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
         };
     };
     delete_api_v1_collections_id: {
@@ -15018,13 +14943,6 @@ export interface operations {
             };
             /** @description Stale revision or cancellation */
             409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description License unavailable */
-            423: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -15091,13 +15009,6 @@ export interface operations {
                 };
                 content?: never;
             };
-            /** @description License unavailable */
-            423: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
         };
     };
     get_api_v1_collections_id_books: {
@@ -15153,13 +15064,6 @@ export interface operations {
             };
             /** @description Stale revision or cancellation */
             409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description License unavailable */
-            423: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -15226,13 +15130,6 @@ export interface operations {
                 };
                 content?: never;
             };
-            /** @description License unavailable */
-            423: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
         };
     };
     post_api_v1_collections_id_restore: {
@@ -15289,13 +15186,6 @@ export interface operations {
             };
             /** @description Stale revision or cancellation */
             409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description License unavailable */
-            423: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -15360,13 +15250,6 @@ export interface operations {
                 };
                 content?: never;
             };
-            /** @description License unavailable */
-            423: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
         };
     };
     post_categories: {
@@ -15421,13 +15304,6 @@ export interface operations {
             };
             /** @description Stale revision or cancellation */
             409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description License unavailable */
-            423: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -15490,13 +15366,6 @@ export interface operations {
                 };
                 content?: never;
             };
-            /** @description License unavailable */
-            423: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
         };
     };
     patch_categories_id: {
@@ -15553,13 +15422,6 @@ export interface operations {
             };
             /** @description Stale revision or cancellation */
             409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description License unavailable */
-            423: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -15629,13 +15491,6 @@ export interface operations {
                 };
                 content?: never;
             };
-            /** @description License unavailable */
-            423: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
         };
     };
     post_categories_defaults: {
@@ -15698,13 +15553,6 @@ export interface operations {
                 };
                 content?: never;
             };
-            /** @description License unavailable */
-            423: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
         };
     };
     get_books_id_categories: {
@@ -15757,13 +15605,6 @@ export interface operations {
             };
             /** @description Stale revision or cancellation */
             409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description License unavailable */
-            423: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -15825,13 +15666,6 @@ export interface operations {
             };
             /** @description Stale revision or cancellation */
             409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description License unavailable */
-            423: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -15899,13 +15733,6 @@ export interface operations {
                 };
                 content?: never;
             };
-            /** @description License unavailable */
-            423: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
         };
     };
     post_categories_assign_collection: {
@@ -15968,13 +15795,6 @@ export interface operations {
                 };
                 content?: never;
             };
-            /** @description License unavailable */
-            423: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
         };
     };
     get_category_ai_settings: {
@@ -16027,13 +15847,6 @@ export interface operations {
             };
             /** @description Stale revision or cancellation */
             409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description License unavailable */
-            423: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -16100,13 +15913,6 @@ export interface operations {
                 };
                 content?: never;
             };
-            /** @description License unavailable */
-            423: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
         };
     };
     post_category_ai_enqueue: {
@@ -16161,13 +15967,6 @@ export interface operations {
             };
             /** @description Stale revision or cancellation */
             409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description License unavailable */
-            423: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -16233,13 +16032,6 @@ export interface operations {
                 };
                 content?: never;
             };
-            /** @description License unavailable */
-            423: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
         };
     };
     post_category_ai_tasks_cancel: {
@@ -16297,13 +16089,6 @@ export interface operations {
             };
             /** @description Stale revision or cancellation */
             409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description License unavailable */
-            423: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -16373,13 +16158,6 @@ export interface operations {
                 };
                 content?: never;
             };
-            /** @description License unavailable */
-            423: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
         };
     };
     post_category_ai_tasks_review: {
@@ -16439,13 +16217,6 @@ export interface operations {
                 };
                 content?: never;
             };
-            /** @description License unavailable */
-            423: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
         };
     };
     post_metadata_identify: {
@@ -16500,13 +16271,6 @@ export interface operations {
             };
             /** @description Metadata or source snapshot changed */
             409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Activation unavailable */
-            423: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -16573,13 +16337,6 @@ export interface operations {
                 };
                 content?: never;
             };
-            /** @description Activation unavailable */
-            423: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
         };
     };
     post_metadata_identity_reviews_batch: {
@@ -16634,13 +16391,6 @@ export interface operations {
             };
             /** @description Metadata or source snapshot changed */
             409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Activation unavailable */
-            423: {
                 headers: {
                     [name: string]: unknown;
                 };
